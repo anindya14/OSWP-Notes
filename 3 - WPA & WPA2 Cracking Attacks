@@ -49,7 +49,7 @@ It shows multiple lines, keep at least one line of challenge/response per userna
 `asleap -C <Challenge> -R <Response> -W /usr/share/wordlist/rockyou.txt`
 
 ## Create a new configuration file with below content; replace SSID with target AP name (eg: dlink-my-router), identity with username and clear-text password that you cracked previously  
-`nano oswp-enterprise.conf`
+`nano filename*-enterprise.conf`
 
     network={
             scan_ssid=1
